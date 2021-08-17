@@ -1,0 +1,3 @@
+/home/dread/CLionProjects/helloC/CMakeFiles/rebuild_cache.dir
+/home/dread/CLionProjects/helloC/CMakeFiles/edit_cache.dir
+/home/dread/CLionProjects/helloC/CMakeFiles/runme.exe.dir

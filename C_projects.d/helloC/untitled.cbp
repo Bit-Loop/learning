@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="untitled"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/dread/CLionProjects/helloC"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/dread/CLionProjects/helloC"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/dread/CLionProjects/helloC"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runme.exe">
+				<Option output="/home/dread/CLionProjects/helloC/runme.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dread/CLionProjects/helloC"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 runme.exe"/>
+					<CompileFile command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runme.exe/fast">
+				<Option output="/home/dread/CLionProjects/helloC/runme.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dread/CLionProjects/helloC"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 runme.exe/fast"/>
+					<CompileFile command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="make -f &quot;/home/dread/CLionProjects/helloC/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/dread/CLionProjects/helloC/main.c">
+			<Option target="runme.exe"/>
+		</Unit>
+		<Unit filename="/home/dread/CLionProjects/helloC/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

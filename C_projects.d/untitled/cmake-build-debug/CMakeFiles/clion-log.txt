@@ -1,0 +1,2 @@
+CMakeLists.txt not found in /home/dread/CLionProjects/untitled Select CMakeLists.txt
+CMake executable not specified Configure Disable profile
