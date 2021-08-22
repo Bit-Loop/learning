@@ -7,15 +7,14 @@
 #include <stdio.h> 
 
 int main(void){
-        int c; 
-        int blank, nl;
-        nl = blank = 0;
+        int c, blank, nl;
+        c = nl = blank = 0;
+        puts("to exit use ctrl^z & enter in windows");
         while ((c = getchar()) != EOF){
                
-                printf("%c", c);
                 if (c == ' ')  { ++blank; };
                 if (c == '\n' ) { ++nl; };
         }   
-        printf("blank lines: %d\n NewLines: %d", blank, nl);
+        printf("blank lines:\t%d\nNewLines:\t%d", blank, nl);
 return 0;
-}
+}`
