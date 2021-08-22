@@ -1,9 +1,9 @@
 
 #include <stdio.h>
-#include "myFunction.c""
+#include "myFunction.c"
 int main (void){
        int val1, val2; 
-       myFunction pi;
+       short pi = &myFunction;
        pi.num = 22;
        pi.denum = 7;
        val2 = &(pi.denum)

@@ -1,0 +1,3 @@
+/home/bitloop/bitloop.dev.d/github/learning/C_projects.d/c_lang_2nd-ed.d/CMakeFiles/rebuild_cache.dir
+/home/bitloop/bitloop.dev.d/github/learning/C_projects.d/c_lang_2nd-ed.d/CMakeFiles/edit_cache.dir
+/home/bitloop/bitloop.dev.d/github/learning/C_projects.d/c_lang_2nd-ed.d/CMakeFiles/a.out.dir
