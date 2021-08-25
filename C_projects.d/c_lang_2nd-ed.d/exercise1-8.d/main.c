@@ -17,4 +17,4 @@ int main(void){
         }   
         printf("blank lines:\t%d\nNewLines:\t%d", blank, nl);
 return 0;
-}`
+}

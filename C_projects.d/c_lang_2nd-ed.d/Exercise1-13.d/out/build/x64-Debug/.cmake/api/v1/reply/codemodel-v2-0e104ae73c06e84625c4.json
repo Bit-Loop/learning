@@ -1,0 +1,59 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "cProgLang2ndEd",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "a.exe::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-a.exe-Debug-1e22d25912f3a55106da.json",
+					"name" : "a.exe",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/bitloop/source/repos/Bit-Loop/learning/C_projects.d/c_lang_2nd-ed.d/Exercise1-13.d/out/build/x64-Debug",
+		"source" : "C:/Users/bitloop/source/repos/Bit-Loop/learning/C_projects.d/c_lang_2nd-ed.d/Exercise1-13.d"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 2
+	}
+}
