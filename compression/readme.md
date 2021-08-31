@@ -6,3 +6,4 @@
 * Lossless Compression based on words(entropy) vs quanitiy of input parameters
 * output words in a vertical CLI histogram.
 * compress and decompress a file of words 
+* read and display the contents of a file as hex
