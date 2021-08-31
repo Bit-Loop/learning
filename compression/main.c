@@ -25,10 +25,12 @@ int main(void){
             fprintf(stderr, "Error: cannot open the file '%s'.\n", filePath);
             exit(1);
 	}
-	int maxBytes = 16;
-        uint8_t* buffer = (uint16_t*)malloc(maxBytes); 
-	int numBytes = fread(buffer, sizeof(uint16_t), maxBytes, file);
-	printf("%i", numBytes);
+	fseek(file, 0, SEEK_END);
+	int maxBytes = ftell(file);
+        uint8_t* buffer = (uint8_t*)calloc(maxBytes, sizeof(uint8_t)); 
+	int numBytes = fread(buffer, sizeof(uint8_t), maxBytes, file);
+	printf("maxBytes %i, numBytes %i", maxBytes, numBytes);
 	fclose(file);
+	free(buffer);
 return 0;
 }
