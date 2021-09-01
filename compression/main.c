@@ -12,6 +12,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <unistd.h>
+#include <fcntl.h>
+#define CHUNK_SIZE uint8_t
+
 int main(void){
 
 	// REF: http://www.dmulholl.com/lets-build/a-hexdump-utility.html
@@ -19,18 +23,37 @@ int main(void){
 	// REF: 
 	FILE* file;
 	char* filePath = "./";
-
-	file = fopen("file", "r");
+        uint8_t* buffer;
+	uint8_t br;
+        file = fopen("file", "r");
         if (file == NULL) {
             fprintf(stderr, "Error: cannot open the file '%s'.\n", filePath);
             exit(1);
 	}
 	fseek(file, 0, SEEK_END);
 	int maxBytes = ftell(file);
-        uint8_t* buffer = (uint8_t*)calloc(maxBytes, sizeof(uint8_t)); 
-	int numBytes = fread(buffer, sizeof(uint8_t), maxBytes, file);
-	printf("maxBytes %i, numBytes %i", maxBytes, numBytes);
-	fclose(file);
+        buffer = (uint8_t*)calloc(maxBytes, sizeof(CHUNK_SIZE)); 
+        br = read(file, buffer, sizeof(uint8_t));
+        printf("br:%02x\n", br);
+        if (buffer == NULL) {
+                printf("Memory not allocated.\n");
+                exit(-1);
+        } else {
+                printf("Memory successfully allocated using calloc.\n");
+                // Get the elements of the array
+                //for (int i = 0; i < maxBytes; ++i) {
+                //       buffer[i] = i;
+                //}
+                // Print the elements of the array
+                printf("The elements of the array are: ");
+                for (int i = 0; i < maxBytes; ++i) {
+                        printf("%02x, ", buffer[i]);
+                }
+        }
+        printf("maxBytes %i, size of the buffer %i", maxBytes, sizeof(*buffer));
+        printf("%02x",br);
+        fclose(file);
 	free(buffer);
 return 0;
 }
+
