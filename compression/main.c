@@ -40,38 +40,65 @@ int main(void) {
       "Loop\\learning\\compression\\crypt";
   uint8_t* buffer;
   file = fopen(fileDir, "rb");
+  unsigned short byteCount[0x101] = {0};
+  unsigned long totalByteAmount = 0;
   if (file == NULL) {
     fprintf(stderr, "Error: cannot open the file '%s'.\n", fileDir);
     exit(1);
   }
-  fseek(file, 0, SEEK_END); // uncertain if this is needed, points to EOF
+  fseek(file, 0, SEEK_END);  // uncertain if this is needed, points to EOF
   long maxBytes = ftell(file);
-  buffer = (uint8_t*)calloc( maxBytes, sizeof(CHUNK_SIZE));  // make an array big enough to hopefully hold the file.
+  buffer = (uint8_t*)calloc(
+      maxBytes,
+      sizeof(
+          CHUNK_SIZE));  // make an array big enough to hopefully hold the file.
   fseek(file, 0, SEEK_SET);  // set pos to read from, undoing SEEK_END
   if (buffer == NULL) {
     printf("Memory not allocated.\n");
     exit(-1);
   } else {
-   // fseek(file, 0, SEEK_SET);  // set pos to read from
-    fread(buffer, sizeof(CHUNK_SIZE), maxBytes,file);  // Read in the entire file
+    // fseek(file, 0, SEEK_SET);  // set pos to read from
+    fread(buffer, sizeof(CHUNK_SIZE), maxBytes,
+          file);  // Read in the entire file
     printf("Memory successfully allocated using calloc.\n");
     printf("The elements of the array are: \n\n");
     int row = 0;
     for (unsigned long int i = 0; i < maxBytes; ++i) {
-      printf("%02x ", buffer[i]); //outputs text to cli
-      if (divBy8(i+1) == 1) {
+      printf("%02x ", buffer[i]);  // outputs text to cli
+      if (divBy8(i + 1) == 1) {
         printf("\n");
+      }
+      for (unsigned short x = 0; x <= 0xFF; ++x) {
+        if (x == buffer[i]) {
+          ++byteCount[x];
+          ++totalByteAmount;
+        }
       }
     }
   }
- 
-  printf("\n\nFile size was\t%i Bytes", maxBytes);
-   fileOut = fopen(fileOutDir, "wb");           // w for write, b for biinary
-  fwrite(buffer, maxBytes, 1, fileOut);  // write 10 bytes from our buffer
-  fclose(file);
-  fclose(fileOut);
-  free(buffer);
-  getchar(); // Using this as a hack to keep the program from
-             //
-  return 0;
-}
+  // display information about counted bytes
+  int maxByteCount = 0, maxByteRef = 0;  // sv  d <= x; then q <= d;
+  printf("\n\nTotal Amount of Bytes: %i\n", totalByteAmount);
+  for (int x = 0; x <= 0xFF; ++x) {
+    printf("%02X: %i\t|| ", x, byteCount[x]);
+    if (maxByteCount < byteCount[x]) {
+      maxByteCount = byteCount[x];
+      maxByteRef = x;
+	}
+    if (divBy8(x + 1)) {
+        printf("\n");
+    }
+  }
+    printf("\n\nFile size is\t%i Bytes\n"
+           "Largest byte probability: Byte %02x, Char is '%c'\ntByte occurance count is: %i\n\nn",
+            maxBytes,maxByteRef, maxByteRef, maxByteCount);
+    fileOut = fopen(fileOutDir, "wb");     // w for write, b for biinary
+    fwrite(buffer, maxBytes, 1, fileOut);  // write 10 bytes from our buffer
+    fclose(file);
+    fclose(fileOut);
+    free(buffer);
+    getchar();  // Using this as a hack to keep the program from
+                //
+    return 0;
+  }
+
