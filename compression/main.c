@@ -17,11 +17,10 @@
 #include <string.h>
 #define CHUNK_SIZE uint8_t
 
-int divBy8(int n)
-{ // https://www.geeksforgeeks.org/check-number-divisible-8-using-bitwise-operators/
-    return (((n >> 3) << 3) == n);
+int divBy8(int n) {
+  // REF: https://www.geeksforgeeks.org/check-number-divisible-8-using-bitwise-operators/
+  return (((n >> 3) << 3) == n);
 }
- 
 
 int main(void) {
   // REF: http://www.dmulholl.com/lets-build/a-hexdump-utility.html
@@ -41,6 +40,7 @@ int main(void) {
   uint8_t* buffer;
   file = fopen(fileDir, "rb");
   unsigned short byteCount[0x101] = {0};
+  unsigned short byteCountCopy[0x101] = {0}; 
   unsigned long totalByteAmount = 0;
   if (file == NULL) {
     fprintf(stderr, "Error: cannot open the file '%s'.\n", fileDir);
@@ -48,10 +48,7 @@ int main(void) {
   }
   fseek(file, 0, SEEK_END);  // uncertain if this is needed, points to EOF
   long maxBytes = ftell(file);
-  buffer = (uint8_t*)calloc(
-      maxBytes,
-      sizeof(
-          CHUNK_SIZE));  // make an array big enough to hopefully hold the file.
+  buffer = (uint8_t*)calloc(maxBytes,sizeof(CHUNK_SIZE));  // make an array big enough to hopefully hold the file.
   fseek(file, 0, SEEK_SET);  // set pos to read from, undoing SEEK_END
   if (buffer == NULL) {
     printf("Memory not allocated.\n");
@@ -70,7 +67,15 @@ int main(void) {
       }
       for (unsigned short x = 0; x <= 0xFF; ++x) {
         if (x == buffer[i]) {
-          ++byteCount[x];
+         // sortedThing[byteCount[0]]  
+         // //
+         // prob will need new for loop
+         // do not itrate values of 0s
+         // probably make a list of of value that are itratable
+         // brb going to do a round
+         // sortedThing[buffer[0]] = 
+         ++byteCount[x];
+         byteCountCopy[x] = byteCount[x];
           ++totalByteAmount;
         }
       }
@@ -84,21 +89,56 @@ int main(void) {
     if (maxByteCount < byteCount[x]) {
       maxByteCount = byteCount[x];
       maxByteRef = x;
-	}
+    }
     if (divBy8(x + 1)) {
-        printf("\n");
+      printf("\n");
     }
   }
-    printf("\n\nFile size is\t%i Bytes\n"
-           "Largest byte probability: Byte %02x, Char is '%c'\ntByte occurance count is: %i\n\nn",
-            maxBytes,maxByteRef, maxByteRef, maxByteCount);
-    fileOut = fopen(fileOutDir, "wb");     // w for write, b for biinary
-    fwrite(buffer, maxBytes, 1, fileOut);  // write 10 bytes from our buffer
-    fclose(file);
-    fclose(fileOut);
-    free(buffer);
-    getchar();  // Using this as a hack to keep the program from
-                //
-    return 0;
+  //This code block should be moved or merged
+  unsigned int tmpLargestCount = 0;
+  int iteratePos = 0; // iterate postion
+  uint16_t sortedByteList[sizeof(byteCount)] = {0};
+  bool allZeroFlag = false;
+  int z = 0;
+  int tmp;
+  int zeroCounter = 0;
+  while(!allZeroFlag) {
+    tmpLargestCount = 0;
+    for (int i = 0; i <= 255; ++i) {// for i in range of 255
+      if ((byteCountCopy[i] != 0) & (byteCountCopy[i] > tmpLargestCount)) {
+        tmpLargestCount = byteCountCopy[i];
+        iteratePos = i;
+      } //go through the list to find the biggest number (that is left over)
+      sortedByteList[z] = iteratePos;
+      byteCountCopy[iteratePos] = 0;
+    } 
+    tmp = 0;
+    zeroCounter = 0;
+    ++z;
+    for (int zeroCheck = 0; zeroCheck <= 0xFF; zeroCheck++) {  // move up into the for loop above
+      tmp = byteCountCopy[zeroCheck];
+      if (!tmp)  // if it is false ( or equal to zero )
+        zeroCounter++; // then add to the counting of zeros
+      else if (zeroCounter == 0xFF) //if count of zeros = 255 break loop
+        allZeroFlag = true;
+    } 
   }
-
+  printf("\n\n\n\n\n");
+  for (int i = 0; i <= 255; ++i) {
+    printf("#%i  :  byteSym %02x  : byteCount %i \n", i, sortedByteList[i],byteCount[sortedByteList[i]]);
+  }
+  unsigned int tmpLargestByte = 0;
+  printf(
+      "\n\nFile size is\t%i Bytes\n"
+      "Largest byte probabi]ity: Byte %02x, Char is '%c'\ntByte occurance "
+      "count is: %i\n\n",
+      maxBytes, maxByteRef, maxByteRef, maxByteCount);
+  fileOut = fopen(fileOutDir, "wb");     // w for write, b for biinary
+  fwrite(buffer, maxBytes, 1, fileOut); 
+  fclose(file);
+  fclose(fileOut);
+  free(buffer);
+  getchar(NULL);  // Using this as a hack to keep the program from ending
+              //
+  return 0;
+}
