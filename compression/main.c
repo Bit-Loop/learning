@@ -66,16 +66,9 @@ int main(void) {
       }
       for (unsigned short x = 0; x <= 0xFF; ++x) {
         if (x == buffer[i]) {
-         // sortedThing[byteCount[0]]  
-         // //
-         // prob will need new for loop
-         // do not itrate values of 0s
-         // probably make a list of of value that are itratable
-         // brb going to do a round
-         // sortedThing[buffer[0]] = 
          ++byteCount[x];
          byteCountCopy[x] = byteCount[x];
-          ++totalByteAmount;
+         ++totalByteAmount;
         }
       }
     }
@@ -99,26 +92,26 @@ int main(void) {
   uint16_t sortedByteList[0xFF] = {0};
   bool allZeroFlag = false;
   int z = 0;
-  int tmp = 0, tmp2 = -1;
+  int tmp = 0, tmp2 = 2;
   int zeroCounter = 0;
   int nonZerocount = 0;
-  for ( int varI = 0; (byteCountCopy[varI] != 0) || (byteCountCopy[varI] == byteCount[varI]); ++varI) {
+  for (int varI = 0; (byteCountCopy[varI] != 0) || (itrPosition != tmp2);
+       ++varI) {
     tmpLargestCount = 0;
+    tmp2 = itrPosition;
     for (int i = 0; i <= 0xFF; ++i) {
-        if ((byteCountCopy[i] != 0) & (byteCountCopy[i] > tmpLargestCount)) {
+        if ((byteCountCopy[i] != 0) && (byteCountCopy[i] > tmpLargestCount)) {
           tmpLargestCount = byteCountCopy[i];
           itrPosition = i;  // iterate position.
           printf("\n itr pos : %i ", i);
 
         } //go through the list to find the biggest number (that is left over)
-        tmp2 = itrPosition;
-         // if (byteCountCopy)
-        sortedByteList[z] = itrPosition;
+        sortedByteList[varI] = itrPosition;
         byteCountCopy[itrPosition] = 0;
     }
-    ++z; 
-    printf("\nZ is: %i\t", z);
-    printf("Z is: %i\n", varI);
+    printf("\nitrPosition is: %i (%02x)\t", itrPosition, itrPosition);
+    printf("tmp2 is: %i\t", tmp2);
+    printf("varI is: %i\n", varI);
   }
   printf("\n\n\n\n\n sizeof sorted byte %i\n", sizeof(sortedByteList)/sizeof(sortedByteList[0]));
   for (int i = 0; i <= 40; ++i) {
