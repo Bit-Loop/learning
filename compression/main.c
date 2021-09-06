@@ -55,13 +55,12 @@ int main(void) {
     exit(-1);
   } else {
     // fseek(file, 0, SEEK_SET);  // set pos to read from
-    fread(buffer, sizeof(CHUNK_SIZE), maxBytes,
-          file);  // Read in the entire file
+    fread(buffer, sizeof(CHUNK_SIZE), maxBytes, file);  // Read in the entire file
     printf("Memory successfully allocated using calloc.\n");
     printf("The elements of the array are: \n\n");
     int row = 0;
-    for (unsigned long int i = 0; i < maxBytes; ++i) {
-      printf("%02x ", buffer[i]);  // outputs text to cli
+    for (long int i = 0; i < maxBytes; ++i) {
+      printf("%02x ", buffer[i]);  // outputs buffer/file contents to cli
       if (divBy8(i + 1) == 1) {
         printf("\n");
       }
@@ -96,36 +95,34 @@ int main(void) {
   }
   //This code block should be moved or merged
   unsigned int tmpLargestCount = 0;
-  int iteratePos = 0; // iterate postion
-  uint16_t sortedByteList[sizeof(byteCount)] = {0};
+  int itrPosition = 0; // iterate postion
+  uint16_t sortedByteList[0xFF] = {0};
   bool allZeroFlag = false;
   int z = 0;
-  int tmp;
+  int tmp = 0, tmp2 = -1;
   int zeroCounter = 0;
-  while(!allZeroFlag) {
+  int nonZerocount = 0;
+  for ( int varI = 0; (byteCountCopy[varI] != 0) || (byteCountCopy[varI] == byteCount[varI]); ++varI) {
     tmpLargestCount = 0;
-    for (int i = 0; i <= 255; ++i) {// for i in range of 255
-      if ((byteCountCopy[i] != 0) & (byteCountCopy[i] > tmpLargestCount)) {
-        tmpLargestCount = byteCountCopy[i];
-        iteratePos = i;
-      } //go through the list to find the biggest number (that is left over)
-      sortedByteList[z] = iteratePos;
-      byteCountCopy[iteratePos] = 0;
-    } 
-    tmp = 0;
-    zeroCounter = 0;
-    ++z;
-    for (int zeroCheck = 0; zeroCheck <= 0xFF; zeroCheck++) {  // move up into the for loop above
-      tmp = byteCountCopy[zeroCheck];
-      if (!tmp)  // if it is false ( or equal to zero )
-        zeroCounter++; // then add to the counting of zeros
-      else if (zeroCounter == 0xFF) //if count of zeros = 255 break loop
-        allZeroFlag = true;
-    } 
+    for (int i = 0; i <= 0xFF; ++i) {
+        if ((byteCountCopy[i] != 0) & (byteCountCopy[i] > tmpLargestCount)) {
+          tmpLargestCount = byteCountCopy[i];
+          itrPosition = i;  // iterate position.
+          printf("\n itr pos : %i ", i);
+
+        } //go through the list to find the biggest number (that is left over)
+        tmp2 = itrPosition;
+         // if (byteCountCopy)
+        sortedByteList[z] = itrPosition;
+        byteCountCopy[itrPosition] = 0;
+    }
+    ++z; 
+    printf("\nZ is: %i\t", z);
+    printf("Z is: %i\n", varI);
   }
-  printf("\n\n\n\n\n");
-  for (int i = 0; i <= 255; ++i) {
-    printf("#%i  :  byteSym %02x  : byteCount %i \n", i, sortedByteList[i],byteCount[sortedByteList[i]]);
+  printf("\n\n\n\n\n sizeof sorted byte %i\n", sizeof(sortedByteList)/sizeof(sortedByteList[0]));
+  for (int i = 0; i <= 40; ++i) {
+    printf("\n#%i  :  byteSym %02x  : byteCount %i", i, sortedByteList[i],byteCount[sortedByteList[i]]);
   }
   unsigned int tmpLargestByte = 0;
   printf(
@@ -139,6 +136,5 @@ int main(void) {
   fclose(fileOut);
   free(buffer);
   getchar(NULL);  // Using this as a hack to keep the program from ending
-              //
   return 0;
 }
