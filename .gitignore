@@ -386,3 +386,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+/C_projects.d/compression/out/build
+/C_projects.d/tax_calc_for_AnBoz/out/build/x64-Debug/.cmake/api/v1
+/C_projects.d/tax_calc_for_AnBoz/out/build/x64-Debug/CMakeFiles
+/C_projects.d/tax_calc_for_AnBoz/out/build/x64-Debug
