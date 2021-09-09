@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "hashtable.h"
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -32,6 +33,7 @@ int main(){
         char FNAME[257];
         scanf("%[^\n]", FNAME); fgetc(stdin);
     }
+  
      // Write an answer using printf(). DON'T FORGET THE TRAILING \n
      // To debug: fprintf(stderr, "Debug messages...\n")
      // For each of the Q filenames, display on a line the corresponding MIME type. If there is no corresponding type, then display UNKNOWN.
