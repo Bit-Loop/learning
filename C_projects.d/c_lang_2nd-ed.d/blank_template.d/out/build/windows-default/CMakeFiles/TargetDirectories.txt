@@ -1,3 +1,0 @@
-C:/Users/bitloop/source/repos/Bit-Loop/learning/C_projects.d/c_lang_2nd-ed.d/blank_template.d/out/build/windows-default/CMakeFiles/a.out.dir
-C:/Users/bitloop/source/repos/Bit-Loop/learning/C_projects.d/c_lang_2nd-ed.d/blank_template.d/out/build/windows-default/CMakeFiles/edit_cache.dir
-C:/Users/bitloop/source/repos/Bit-Loop/learning/C_projects.d/c_lang_2nd-ed.d/blank_template.d/out/build/windows-default/CMakeFiles/rebuild_cache.dir

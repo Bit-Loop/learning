@@ -1,1 +1,0 @@
-/usr/bin/cc -rdynamic CMakeFiles/runme.exe.dir/main.c.o -o runme.exe 

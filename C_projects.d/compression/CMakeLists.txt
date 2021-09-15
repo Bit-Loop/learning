@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
-project(cProgLang2ndEd)
+project(MimeTypes)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(a.exe main.c)
+add_executable(MIME.exe main.c)
