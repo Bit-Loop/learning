@@ -1,2 +1,2 @@
-*bit-loop/learning
-*Projects or exercises done while I learn programming
+* bit-loop/learning
+* Projects or exercises done while I learn programming
