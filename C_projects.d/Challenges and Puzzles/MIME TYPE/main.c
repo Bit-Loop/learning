@@ -8,30 +8,39 @@
 #include <string.h>
 #include <stdbool.h>
 #include "hashtable.h"
-
+//#include "hashtable.c"
 /**
  * Auto-generated code below aims at helping you parse
  * the standard input according to the problem statement.
  **/
 
-int main(){
+    #define EXT_MT_TABLE_SIZE 20;
+int main() {
+    initHash();
+    printf("test!\t%d\n", returnBucket(20));
     // Number of elements which make up the association table.
-    int N;
-    scanf("%d", &N);
+    int N = 10;
+    //scanf("%d", &N);
     // Number Q of file names to be analyzed.
-    int Q;
-    scanf("%d", &Q);
+    int Q = 0;
+    //scanf("%d", &Q);
+    struct extMt {
+        char mt[51];
+        char ext[11];
+    };
+    struct extMt fileExt[20] = { 0 };
     for (int i = 0; i < N; i++) {
-        // file extension
-        char EXT[11];
-        // MIME type.
-        char MT[51];
-        scanf("%s%s", EXT, MT); fgetc(stdin);
+        fprintf(stderr, "n %i\n", i + 1);
+        scanf("%s%s", fileExt[i].ext, fileExt[i].mt); fgetc(stdin);
+        fprintf(stderr, "EXT %s \t MT %s\n", fileExt[i].ext, fileExt[i].mt);
+    }
+    for (int i = 0; i <= N; ++i) {
+        printf("#%d\t%s\t%s\n", i, fileExt[i].ext, fileExt[i].mt);
     }
     for (int i = 0; i < Q; i++) {
         // One file name per line.
         char FNAME[257];
-        scanf("%[^\n]", FNAME); fgetc(stdin);
+       // scanf("%[^\n]", FNAME); fgetc(stdin);
     }
   
      // Write an answer using printf(). DON'T FORGET THE TRAILING \n

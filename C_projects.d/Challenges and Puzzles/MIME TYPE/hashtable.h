@@ -4,11 +4,33 @@
 *
 * REF: https://stackoverflow.com/questions/31930046/what-is-a-hash-table-and-how-do-you-make-it-in-c
 * REF: https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)HashTables.html?highlight=%28CategoryAlgorithmNotes%29
-* REF: https://www.youtube.com/watch?v=2Ti5yvumFTU
+* REF: 
+	Understanding and implementing a Hash Table (in C)
+	https://www.youtube.com/watch?v=2Ti5yvumFTU
+* REF:
+	Guards, Name Mangling, and extern "C" - Jacob Sorber
+	https://www.youtube.com/watch?v=NeOTr0u7ALk2
+* REF:
+	Hash table - Wiki
+	https://en.wikipedia.org/wiki/Hash_table~
+* REF: 
+	Big O notation - Wiki
+	https://en.wikipedia.org/wiki/Big_O_notation
 */
-#pragma once
-inline int hashMable() {
+// boiler-plate ( #ifdef guards ) start
+#ifndef HASHTABLE_H // if HASHTABLE_H is not defined 
+#define HASHTABLE_H // then define it here.
+// end
+// boiler-plate start
+#ifdef __cplusplus //check if using a C++ compiler, if true put code in extern c block
+extern "C" { // if true ^ then use C naming rules for C++ compilation
+#endif
 
+	
+	//stuff goes here
 
-	return 0;
+//boiler - plate bottom part below.
+#ifdef __cplusplus // if true exit the extern c block
 }
+#endif
+#endif // HASHTABLE_H end
