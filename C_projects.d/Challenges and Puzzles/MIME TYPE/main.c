@@ -1,4 +1,4 @@
-// ITJ 09/07/2021
+// ITJ 09/07/2021, Last change: 09/22/21
 // codingame challege Mime Types
 // Limit: 0 < N < 10000
 // Limit: 0 < Q < 10000
@@ -14,9 +14,11 @@
  * the standard input according to the problem statement.
  **/
 
-    #define EXT_MT_TABLE_SIZE 20;
+#define EXT_MT_TABLE_SIZE 20
+
 int main() {
-    initHash();
+    while (true) humanTest();
+    //printAllBuckets();
     printf("test!\t%d\n", returnBucket(20));
     // Number of elements which make up the association table.
     int N = 10;
