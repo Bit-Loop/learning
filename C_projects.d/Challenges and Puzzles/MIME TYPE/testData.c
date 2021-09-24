@@ -1,23 +1,24 @@
 /* itj, created 09/23/21, last change 09/23/21
 * Emulating the codingame test input for the challenge "MIME TYPE"
-* 
+* The text data was extracted from the challenge.
 * It is a seprate C file inorder to
 * abstract it away for the sake of simplicity.
 *
 * 
 * REF: Passing file pointer to FN https://stackoverflow.com/questions/33378000/passing-file-pointer-to-a-function
-* 
+* REF: Passing array of strings to FN https://stackoverflow.com/questions/38822148/c-pass-array-of-strings-as-function-parameter?rq=1
 */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "testdata.h"
 
-int parseFile();
 
 void testData() {
+	
 	#define MAX_SIZE 50
 	#define STR_SIZE 50
-	FILE* mt_f;
+	/*FILE* mt_f;
 	FILE* ext_f;
 	FILE* fname_f;
 	char* mtPath = "C:\\Users\\bitloop\\Documents\\GitHub\\learning\\C_projects.d\\Challenges and Puzzles\\MIME TYPE\\_mt.txt";
@@ -33,11 +34,11 @@ void testData() {
 	mtNlCount = parseFile(&mt_f,mtPath, mt);
 	extNlCount = parseFile(&ext_f, extPath, ext);
 	fnameNlCount = parseFile(&fname_f, fnamePath, fname);
-	
+	*/
 }
 
 
-int parseFile(FILE** f, char* filename, char (* string)[MAX_SIZE]) {
+int parseFile(FILE** f, char* filename, char (*string)[MAX_SIZE]) {
 	if ((f = fopen(filename, "r") == NULL)) {
 		printf("NULL!\n\"%s\"", filename);
 	}
@@ -52,7 +53,8 @@ int parseFile(FILE** f, char* filename, char (* string)[MAX_SIZE]) {
 			readChar = fgetc(f);
 			if (readChar == EOF) break;
 			if (readChar == '\n') {
-				strncpy(&string[stringCount], tempString, STR_SIZE);
+				strncpy(string[stringCount], tempString, STR_SIZE);
+				printf("\n&string \t%s\n", string[stringCount]);
 				++stringCount;
 				charCount = 0;	
 				free(tempString);
@@ -70,3 +72,4 @@ int parseFile(FILE** f, char* filename, char (* string)[MAX_SIZE]) {
 		return stringCount;
 	}
 }
+

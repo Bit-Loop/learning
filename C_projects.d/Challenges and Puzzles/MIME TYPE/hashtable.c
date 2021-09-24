@@ -1,4 +1,4 @@
-/* ITJ hashtable.c, created on 09/18/21, last change 09/23/21
+/* ITJ hashtable.c, created on 09/18/21, last change 09/24/21
 * REFs are in hashtable.h
 *
 */
@@ -8,19 +8,9 @@
 #include <stdbool.h>
 #include "hashtable.h"
 
-#define TABLE_SIZE 10000
-#define FNAME_SIZE 257
-
-typedef struct { 
-	char fname[FNAME_SIZE];
-	char ext[11];
-} bucket_ts; //ts = typedef struct
-
-bucket_ts *buckets[TABLE_SIZE + 1];
-
 int returnBucket(int x) {
 
-	return buckets[x]->fname;
+	return buckets[x]->key;
 }
 
 void printBucket(unsigned int bucketNumber) {
@@ -28,10 +18,10 @@ void printBucket(unsigned int bucketNumber) {
 	printf("FName ");
 	if (buckets[bucketNumber] == NULL) printf("____\tEXT ____");
 	else {
-		printf("\"%s\"\t", buckets[bucketNumber]->fname);
+		printf("\"%s\"\t", buckets[bucketNumber]->key);
 		printf("EXT ");
 		if (buckets[bucketNumber] == NULL) printf("____\t");
-		else printf("%s\t", buckets[bucketNumber]->ext);
+		else printf("%s\t", buckets[bucketNumber]->ext_pair);
 	}
 	printf("\n");
 }
@@ -43,7 +33,6 @@ void printAllBuckets() {
 }
 
 
-
 void initBuckets() {
 	for (int i = 0; i <= TABLE_SIZE; ++i) {
 		buckets[i] = NULL;
@@ -52,9 +41,9 @@ void initBuckets() {
 
 unsigned int hash(bucket_ts* drip) {
 	unsigned long int tempCount = 1;
-	int inputLen = sizeof(drip->fname);
+	int inputLen = sizeof(drip->key);
 	for (int i = 0; i <= inputLen; ++i) {
-		tempCount *= drip->fname[i] + 1;
+		tempCount += drip->key[i] * inputLen +1;
 	}
 	printf("Hash() => %0x\n", (tempCount % TABLE_SIZE));
 	return tempCount % TABLE_SIZE;
@@ -66,8 +55,8 @@ bool htIns(bucket_ts* drip) {
 		printf("\n\nCan not insert NULL bucket!\n\n");
 		return false;
 	}
-	int tempIndex = hash(drip->fname);
-	if (buckets[tempIndex]->fname != NULL) { 
+	int tempIndex = hash(drip->key);
+	if (buckets[tempIndex]->key != NULL) { 
 		puts("Error: Hash INS conflict"); 
 		return false;
 	}
@@ -81,7 +70,7 @@ bool htIns(bucket_ts* drip) {
 void humanTest() {
 	puts("start");
 	initBuckets();
-	bucket_ts testDrip = { .fname = "foo", .ext = "bar" };
+	bucket_ts testDrip = { .key = "foo", .ext_pair = "bar" };
 	printBucket(hash(&testDrip));
 	puts("Attempt Insert bucket value to hash table.");
 	htIns(&testDrip); //pass by refrence

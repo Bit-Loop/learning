@@ -21,14 +21,24 @@
 #ifndef HASHTABLE_H // if HASHTABLE_H is not defined 
 #define HASHTABLE_H // then define it here.
 // end
+#
 // boiler-plate start
 #ifdef __cplusplus //check if using a C++ compiler, if true put code in extern c block
 extern "C" { // if true ^ then use C naming rules for C++ compilation
 #endif
 
-	
-	//stuff goes here
+	#define TABLE_SIZE 10000
+	#define FNAME_SIZE 257
 
+	typedef struct {
+		char key[FNAME_SIZE];
+		char ext_pair[11];
+	} bucket_ts; //ts = typedef struct
+
+	bucket_ts* buckets[TABLE_SIZE + 1];
+	
+
+	
 //boiler - plate bottom part below.
 #ifdef __cplusplus // if true exit the extern c block
 }

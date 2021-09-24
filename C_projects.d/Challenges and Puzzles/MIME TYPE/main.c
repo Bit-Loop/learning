@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "hashtable.h"
+#include "testdata.h"
 //#include "hashtable.c"
 /**
  * Auto-generated code below aims at helping you parse
@@ -17,8 +18,6 @@
 #define EXT_MT_TABLE_SIZE 20
 
 int main() {
-    testData();
-    humanTest();
     //printAllBuckets();
     printf("test!\t%d\n", returnBucket(20));
     // Number of elements which make up the association table.
@@ -27,28 +26,77 @@ int main() {
     // Number Q of file names to be analyzed.
     int Q = 0;
     //scanf("%d", &Q);
+
+
     struct extMt {
+        char ext_pair[11];
         char mt[51];
-        char ext[11];
     };
-    struct extMt fileExt[20] = { 0 };
+    struct extMt extMt_s[20] = { 0 };
+
+    // ^^^^^^
+
+
+    /*
     for (int i = 0; i < N; i++) {
         fprintf(stderr, "n %i\n", i + 1);
-        scanf("%s%s", fileExt[i].ext, fileExt[i].mt); fgetc(stdin);
-        fprintf(stderr, "EXT %s \t MT %s\n", fileExt[i].ext, fileExt[i].mt);
+        scanf("%s%s", extMt_s[i].ext, extMt_s[i].mt); fgetc(stdin);
+        fprintf(stderr, "EXT %s \t MT %s\n", extMt_s[i].ext, extMt_s[i].mt);
     }
     for (int i = 0; i <= N; ++i) {
-        printf("#%d\t%s\t%s\n", i, fileExt[i].ext, fileExt[i].mt);
+        printf("#%d\t%s\t%s\n", i, extMt_s[i].ext, extMt_s[i].mt);
     }
     for (int i = 0; i < Q; i++) {
         // One file name per line.
         char FNAME[257];
        // scanf("%[^\n]", FNAME); fgetc(stdin);
     }
-  
-     // Write an answer using printf(). DON'T FORGET THE TRAILING \n
-     // To debug: fprintf(stderr, "Debug messages...\n")
-     // For each of the Q filenames, display on a line the corresponding MIME type. If there is no corresponding type, then display UNKNOWN.
-    printf("UNKNOWN\n");
+  */
+    #define MAX_SIZE 50
+    #define STR_SIZE 50
+    FILE* mt_f;
+    FILE* ext_f;
+    FILE* fname_f;
+    char* mtPath = "C:\\Users\\bitloop\\Documents\\GitHub\\learning\\C_projects.d\\Challenges and Puzzles\\MIME TYPE\\_mt.txt";
+    char* extPath = "C:\\Users\\bitloop\\Documents\\GitHub\\learning\\C_projects.d\\Challenges and Puzzles\\MIME TYPE\\_ext.txt";
+    char* fnamePath = "C:\\Users\\bitloop\\Documents\\GitHub\\learning\\C_projects.d\\Challenges and Puzzles\\MIME TYPE\\_fname.txt";
+    char mt[STR_SIZE][MAX_SIZE] = { 0 };
+    char ext[STR_SIZE][MAX_SIZE] = { 0 };
+    char fname[STR_SIZE][MAX_SIZE] = { 0 };
+    int mtNlCount = 0;
+    int extNlCount = 0;
+    int fnameNlCount = 0;
+    //
+    N = mtNlCount = parseFile(&mt_f, mtPath, mt);
+    extNlCount = parseFile(&ext_f, extPath, ext);
+    Q = fnameNlCount = parseFile(&fname_f, fnamePath, fname);
+
+
+    bucket_ts entry = { .key = "", .ext_pair = "foo"};
+    for (int i = 0; i <= Q; ++i) {
+        printf("fname\t%s\n", fname[i]);
+        strcpy(entry.key, fname[i]);
+        printf("entry.key\t%s\n", entry.key);
+        htIns(&entry);
+        printf("%s\n", fname[i]);
+        printBucket(hash(&entry));
+        
+    }
+
+    puts("start");
+    initBuckets();
+    bucket_ts testDrip = { .key = "foo", .ext_pair = "bar" };
+    printBucket(hash(&testDrip));
+    puts("Attempt Insert bucket value to hash table.");
+    htIns(&testDrip); //pass by refrence
+    puts("Attempt to reinsert the same value to to hash table.");
+    htIns(&testDrip); //pass by refrence
+    puts("end");
+    puts("print all buckets (that are not null)");
+    printAllBuckets();
+
+
+
+
     return 0;
 }
