@@ -3,4 +3,4 @@ project(mimeType)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(MIME main.c "hashtable.h" "hashtable.c")
+add_executable(MIME main.c "hashtable.h" "hashtable.c" "testData.c")

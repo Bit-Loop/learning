@@ -1,4 +1,4 @@
-/* ITJ hashtable.c, created on 09/18/21, last change 09/18/21
+/* ITJ hashtable.c, created on 09/18/21, last change 09/23/21
 * REFs are in hashtable.h
 *
 */
@@ -38,7 +38,7 @@ void printBucket(unsigned int bucketNumber) {
 
 void printAllBuckets() {
 	for (int i = 0; i <= TABLE_SIZE; ++i) {
-		printBucket(i);
+		if (buckets[i] != NULL) printBucket(i);
 	}
 }
 
@@ -89,7 +89,8 @@ void humanTest() {
 	puts("Attempt to reinsert the same value to to hash table.");
 	htIns(&testDrip); //pass by refrence
 	puts("end");
-
+	puts("print all buckets (that are not null)");
+	printAllBuckets();
 }
 
 

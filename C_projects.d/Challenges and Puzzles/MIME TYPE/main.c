@@ -17,6 +17,7 @@
 #define EXT_MT_TABLE_SIZE 20
 
 int main() {
+    testData();
     humanTest();
     //printAllBuckets();
     printf("test!\t%d\n", returnBucket(20));

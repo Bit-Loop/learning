@@ -1,0 +1,6 @@
+example.TXT
+referecnce.txt
+strangename.tiff
+resolv.CSS
+matrix.TiFF
+lanDsCape.Png

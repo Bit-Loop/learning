@@ -1,0 +1,4 @@
+png
+TIFF
+css
+TXT
