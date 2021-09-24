@@ -17,7 +17,7 @@
 #define EXT_MT_TABLE_SIZE 20
 
 int main() {
-    while (true) humanTest();
+    humanTest();
     //printAllBuckets();
     printf("test!\t%d\n", returnBucket(20));
     // Number of elements which make up the association table.

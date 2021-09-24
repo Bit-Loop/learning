@@ -8,84 +8,87 @@
 #include <stdbool.h>
 #include "hashtable.h"
 
-#define TABLE_SIZE 10
+#define TABLE_SIZE 10000
 #define FNAME_SIZE 257
 
 typedef struct { 
 	char fname[FNAME_SIZE];
 	char ext[11];
-} bucket;
+} bucket_ts; //ts = typedef struct
 
-bucket buckets[TABLE_SIZE + 1];
+bucket_ts *buckets[TABLE_SIZE + 1];
 
 int returnBucket(int x) {
 
-	return buckets[x].fname;
+	return buckets[x]->fname;
+}
+
+void printBucket(unsigned int bucketNumber) {
+	printf("Bucket %0x\t", bucketNumber);
+	printf("FName ");
+	if (buckets[bucketNumber] == NULL) printf("____\tEXT ____");
+	else {
+		printf("\"%s\"\t", buckets[bucketNumber]->fname);
+		printf("EXT ");
+		if (buckets[bucketNumber] == NULL) printf("____\t");
+		else printf("%s\t", buckets[bucketNumber]->ext);
+	}
+	printf("\n");
 }
 
 void printAllBuckets() {
 	for (int i = 0; i <= TABLE_SIZE; ++i) {
-		printf("Bucket %0x\t", i);
-		printf("FName ");
-		if (buckets[i].fname == "") printf("----\t");
-		else printf("%s\t", buckets[i].ext);
-		printf("EXT ");
-		if (buckets[i].ext == "") printf("----\t");
-		else printf("%s\t", buckets[i].ext);
-		printf("\n");
+		printBucket(i);
 	}
 }
+
+
 
 void initBuckets() {
 	for (int i = 0; i <= TABLE_SIZE; ++i) {
-		strcpy(buckets[i].ext, "");
-		strcpy(buckets[i].fname, "");
+		buckets[i] = NULL;
 	}
 }
 
-unsigned int hash(char* inputChar) { 
+unsigned int hash(bucket_ts* drip) {
 	unsigned long int tempCount = 1;
-	int inputLen = sizeof(inputChar);
+	int inputLen = sizeof(drip->fname);
 	for (int i = 0; i <= inputLen; ++i) {
-		tempCount *= inputChar[i] + 1;
+		tempCount *= drip->fname[i] + 1;
 	}
-	printf("Hash(): tempCount %% TABLE_SIZE ==> %d\n", (tempCount % TABLE_SIZE));
+	printf("Hash() => %0x\n", (tempCount % TABLE_SIZE));
 	return tempCount % TABLE_SIZE;
 }
 
-bool hashIns(char* inputChar) {
-	if (inputChar == NULL) {
-		printf("\n\ninput string is null!\n\n");
+// Hash Table Insert = htIns
+bool htIns(bucket_ts* drip) {
+	if (drip == NULL) {
+		printf("\n\nCan not insert NULL bucket!\n\n");
 		return false;
 	}
-	int tempIndex = hash(inputChar);
-	if (buckets[tempIndex].fname != NULL) { 
+	int tempIndex = hash(drip->fname);
+	if (buckets[tempIndex]->fname != NULL) { 
 		puts("Error: Hash INS conflict"); 
-		//return false;
-	} //else if ((buckets[tempIndex]->fname == NULL)) {
-		puts("well something ran.");
-		strcpy(buckets[tempIndex].fname, inputChar);
-		return 1;
-	//} 
+		return false;
+	}
+	else {
+		buckets[tempIndex] = drip;
+		return true;
+	}
 }
 
 
 void humanTest() {
+	puts("start");
 	initBuckets();
-	printAllBuckets();
-	bucket val = { .ext = "foo", .fname = "bar" };
-	strcpy(buckets[0].fname, val.ext);
-	strcpy(buckets[1].fname, val.fname);
-	printf("\nBucket 0 FNAME %s\t", buckets[0].fname);
-	printf("Bucket 1 FNAME %s", buckets[1].fname);
-	printAllBuckets();
-	//initHash();
-	char tempInput[257];
-	int tempHash = 0;
-	gets(tempInput);
-	tempHash = hash(tempInput);
-	printf("Hash # %x for %s\n", tempHash, tempInput);
-	hashIns(tempInput);
+	bucket_ts testDrip = { .fname = "foo", .ext = "bar" };
+	printBucket(hash(&testDrip));
+	puts("Attempt Insert bucket value to hash table.");
+	htIns(&testDrip); //pass by refrence
+	printBucket(hash(&testDrip));
+	puts("Attempt to reinsert the same value to to hash table.");
+	htIns(&testDrip); //pass by refrence
+	puts("end");
 
 }
 
