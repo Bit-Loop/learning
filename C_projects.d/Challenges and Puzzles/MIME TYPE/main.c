@@ -71,20 +71,17 @@ int main() {
     extNlCount = parseFile(&ext_f, extPath, ext);
     Q = fnameNlCount = parseFile(&fname_f, fnamePath, fname);
 
+    initBuckets(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    bucket_ts entry = { .key = "", .ext_pair = "foo"};
-    for (int i = 0; i <= Q; ++i) {
-        printf("fname\t%s\n", fname[i]);
-        strcpy(entry.key, fname[i]);
-        printf("entry.key\t%s\n", entry.key);
-        htIns(&entry);
-        printf("%s\n", fname[i]);
-        printBucket(hash(&entry));
-        
+    bucket_ts entry = { .key =  "", .ext_pair = "foo"};
+    for (int i = 0; i < Q; ++i) {
+       strcpy(entry.key, fname[i]);
+       printf("Entry.key, %s\n", entry.key);
+       htIns(&entry);
+       strcpy(entry.key, ""); // fname in bucket is stored as this for some reason
     }
 
     puts("start");
-    initBuckets();
     bucket_ts testDrip = { .key = "foo", .ext_pair = "bar" };
     printBucket(hash(&testDrip));
     puts("Attempt Insert bucket value to hash table.");

@@ -62,6 +62,7 @@ bool htIns(bucket_ts* drip) {
 	}
 	else {
 		buckets[tempIndex] = drip;
+		printAllBuckets();
 		return true;
 	}
 }
