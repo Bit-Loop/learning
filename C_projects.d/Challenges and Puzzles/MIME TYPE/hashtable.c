@@ -39,7 +39,7 @@ void initBuckets() {
 	}
 }
 
-unsigned int hash(bucket_ts* drip) {
+volatile unsigned int hash(bucket_ts* drip) {
 	unsigned long int tempCount = 1;
 	int inputLen = sizeof(drip->key);
 	for (int i = 0; i <= inputLen; ++i) {
@@ -49,20 +49,21 @@ unsigned int hash(bucket_ts* drip) {
 	return tempCount % TABLE_SIZE;
 }
 
-// Hash Table Insert = htIns
-bool htIns(bucket_ts* drip) {
+// Hash Table Insert = htInsv
+volatile bool htIns(bucket_ts* drip) {
 	if (drip == NULL) {
 		printf("\n\nCan not insert NULL bucket!\n\n");
 		return false;
 	}
-	int tempIndex = hash(drip->key);
+
+	int tempIndex = hash(drip);
+
 	if (buckets[tempIndex]->key != NULL) { 
 		puts("Error: Hash INS conflict"); 
 		return false;
 	}
 	else {
 		buckets[tempIndex] = drip;
-		printAllBuckets();
 		return true;
 	}
 }

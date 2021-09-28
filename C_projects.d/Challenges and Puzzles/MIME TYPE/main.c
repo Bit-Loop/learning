@@ -1,4 +1,4 @@
-// ITJ 09/07/2021, Last change: 09/22/21
+// ITJ 09/07/2021, Last change: 09/27/21
 // codingame challege Mime Types
 // Limit: 0 < N < 10000
 // Limit: 0 < Q < 10000
@@ -17,16 +17,14 @@
 
 #define EXT_MT_TABLE_SIZE 20
 
-int main() {
-    //printAllBuckets();
-    printf("test!\t%d\n", returnBucket(20));
-    // Number of elements which make up the association table.
-    int N = 10;
-    //scanf("%d", &N);
-    // Number Q of file names to be analyzed.
-    int Q = 0;
-    //scanf("%d", &Q);
+void initBucket(bucket_ts* bucketPtr, char keyVal[257], char extVal[257]) {
+    strcpy(bucketPtr->key, keyVal);
+    strcpy(bucketPtr->ext_pair, extVal);
+}
 
+int main() {
+    int Q = 0;
+    int N = 0;
 
     struct extMt {
         char ext_pair[11];
@@ -52,8 +50,8 @@ int main() {
        // scanf("%[^\n]", FNAME); fgetc(stdin);
     }
   */
-    #define MAX_SIZE 50
-    #define STR_SIZE 50
+#define MAX_SIZE 50
+#define STR_SIZE 50
     FILE* mt_f;
     FILE* ext_f;
     FILE* fname_f;
@@ -70,29 +68,23 @@ int main() {
     N = mtNlCount = parseFile(&mt_f, mtPath, mt);
     extNlCount = parseFile(&ext_f, extPath, ext);
     Q = fnameNlCount = parseFile(&fname_f, fnamePath, fname);
-
+    //
     initBuckets(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    bucket_ts entry = { .key =  "", .ext_pair = "foo"};
-    for (int i = 0; i < Q; ++i) {
-       strcpy(entry.key, fname[i]);
-       printf("Entry.key, %s\n", entry.key);
-       htIns(&entry);
-       strcpy(entry.key, ""); // fname in bucket is stored as this for some reason
+ 
+
+    //bucketsStorage = (bucket_ts*)malloc(sizeof(*buckets));
+    for (int i = 0; i < TABLE_SIZE; ++i){ // populate the array
+        bucketsStorage[i] = (bucket_ts*)malloc(sizeof(bucket_ts));
+ 
     }
 
-    puts("start");
-    bucket_ts testDrip = { .key = "foo", .ext_pair = "bar" };
-    printBucket(hash(&testDrip));
-    puts("Attempt Insert bucket value to hash table.");
-    htIns(&testDrip); //pass by refrence
-    puts("Attempt to reinsert the same value to to hash table.");
-    htIns(&testDrip); //pass by refrence
-    puts("end");
-    puts("print all buckets (that are not null)");
+ 
+    for(int i = 0; i <= Q; ++i) {
+        initBucket(bucketsStorage[i], &fname[i], "");
+        htIns(&bucketsStorage[i]);
+    }
     printAllBuckets();
-
-
 
 
     return 0;
