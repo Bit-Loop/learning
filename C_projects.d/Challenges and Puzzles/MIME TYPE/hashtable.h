@@ -39,6 +39,11 @@ extern "C" { // if true ^ then use C naming rules for C++ compilation
 	bucket_ts* bucketsStorage[TABLE_SIZE + 1];
 
 
+	typedef struct  {
+		char ext_pair[11];
+		char mt[51];
+	} extMt_ts;
+	
 	
 
 	

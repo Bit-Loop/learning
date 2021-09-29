@@ -16,8 +16,8 @@
 
 void testData() {
 	
-	#define MAX_SIZE 50
-	#define STR_SIZE 50
+	#define STR_AMNT 50
+	#define STR_CHAR_COUNT 50
 	/*FILE* mt_f;
 	FILE* ext_f;
 	FILE* fname_f;
@@ -38,7 +38,7 @@ void testData() {
 }
 
 
-int parseFile(FILE** f, char* filename, char (*string)[MAX_SIZE]) {
+int parseFile(FILE** f, char* filename, char (*string)[STR_AMNT]) {
 	if ((f = fopen(filename, "r") == NULL)) {
 		printf("NULL!\n\"%s\"", filename);
 	}
@@ -46,22 +46,22 @@ int parseFile(FILE** f, char* filename, char (*string)[MAX_SIZE]) {
 		f = fopen(filename, "r");
 		char readChar = 0;
 		char* tempString;
-		tempString = (char*)calloc(STR_SIZE, sizeof(char));
+		tempString = (char*)calloc(STR_CHAR_COUNT, sizeof(char));
 		unsigned int charCount = 0;
 		unsigned int stringCount = 0;
 		while (readChar != EOF) {
 			readChar = fgetc(f);
 			if (readChar == EOF) break;
 			if (readChar == '\n') {
-				strncpy(string[stringCount], tempString, STR_SIZE);
+				strncpy(string[stringCount], tempString, STR_CHAR_COUNT);
 				printf("\n&string \t%s\n", string[stringCount]);
 				++stringCount;
 				charCount = 0;	
 				free(tempString);
-				tempString = (char*)calloc(STR_SIZE, sizeof(char));
+				tempString = (char*)calloc(STR_CHAR_COUNT, sizeof(char));
 			}
 			else {
-				if (charCount > STR_SIZE) break;
+				if (charCount > STR_CHAR_COUNT) break;
 				tempString[charCount]= readChar;
 				++charCount;
 			}
