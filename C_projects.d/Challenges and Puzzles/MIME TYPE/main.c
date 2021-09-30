@@ -13,7 +13,7 @@
 #define EXT_MT_TABLE_SIZE 20
 #define STR_AMNT 50
 #define STR_CHAR_COUNT 100
-int main() {
+
     /* Code from the codingame challenge
     for (int i = 0; i < N; i++) {
         fprintf(stderr, "n %i\n", i + 1);
@@ -28,7 +28,23 @@ int main() {
        // scanf("%[^\n]", FNAME); fgetc(stdin);
     }
   */  // One file name per line.
-      
+
+bucket_ts* htLookUp(bucket_ts* drip) {
+    if (drip == NULL) {
+        printf("\n\nThat bucket is empty!\n\n");
+        return false;
+    }
+    int tempIndex = hash(drip);
+    if (buckets[tempIndex]->key != NULL) {
+        puts("Error: Hash INS conflict");
+        return false;
+    }
+    else {
+        return buckets[tempIndex];
+    }
+}
+
+int main() {
 
     FILE* mt_f;
     FILE* ext_f;
@@ -45,7 +61,7 @@ int main() {
     char fnameTempString[257] = "\0";
     char fnameTempChar = "\0";
     int  tempCharCount = 0;
-    int Q, N;
+    int Q, N; // Codingame challenge provided VARs
     Q = N = 0;
     //
     N = mtNlCount = parseFile(&mt_f, mtPath, mt);
@@ -53,7 +69,7 @@ int main() {
     Q = fnameNlCount = parseFile(&fname_f, fnamePath, fname);
     //
     initBuckets(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    bucket_ts* bucketsStorage = (bucket_ts*)malloc(sizeof(bucket_ts[10000]));
+    bucket_ts* bucketsStorage = (bucket_ts*)malloc(sizeof(bucket_ts[10001]));
     for (int i = 0; i < 10000; ++i) {
         strcpy(bucketsStorage[i].key, "\0");
         strcpy(bucketsStorage[i].ext_pair, "\0");
@@ -79,6 +95,23 @@ int main() {
         htIns(&bucketsStorage[i]);
     }
     printAllBuckets();
+    extMt_ts* extList = (extMt_ts*)malloc(sizeof(extMt_ts[10001]));
+    for (int i = 0; i <= 10000; ++i) {
+        strcpy(extList[i].extension, "\0");
+        strcpy(extList[i].mimeType, "\0");
+    }
+
+
+    bucket_ts tempDrip = { .key = "\0", .ext_pair = "\0"};
+    for (int i = 0; i < Q; ++i) {
+        strcpy(tempDrip.key, fname[i]);
+        htIns(tempDrip);
+        printf("LookUp Returned\t \"%s\"\n", buckets[hash(tempDrip)]->key);
+    }
+    printAllBuckets();
+
+
+
     free(bucketsStorage);
     free(buckets);
     return 0;

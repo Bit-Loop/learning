@@ -40,8 +40,8 @@ extern "C" { // if true ^ then use C naming rules for C++ compilation
 
 
 	typedef struct  {
-		char ext_pair[11];
-		char mt[51];
+		char extension[11];
+		char mimeType[51];
 	} extMt_ts;
 	
 	

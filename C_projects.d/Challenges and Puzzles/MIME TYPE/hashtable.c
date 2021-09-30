@@ -50,7 +50,7 @@ volatile unsigned int hash(bucket_ts* drip) {
 }
 
 // Hash Table Insert = htInsv
-volatile bool htIns(bucket_ts* drip) {
+ bool htIns(bucket_ts* drip) {
 	if (drip == NULL) {
 		printf("\n\nCan not insert NULL bucket!\n\n");
 		return false;
@@ -67,6 +67,7 @@ volatile bool htIns(bucket_ts* drip) {
 		return true;
 	}
 }
+
 
 
 void humanTest() {
