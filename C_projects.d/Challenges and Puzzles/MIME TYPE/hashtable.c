@@ -68,6 +68,20 @@ volatile unsigned int hash(bucket_ts* drip) {
 	}
 }
 
+ bucket_ts* htLookUp(bucket_ts* drip) {
+	 if (drip == NULL) {
+		 printf("\n\nThat bucket is empty!\n\n");
+		 return false;
+	 }
+	 int tempIndex = hash(drip);
+	 if (buckets[tempIndex]->key != NULL) {
+		 puts("Error: Hash INS conflict");
+		 return false;
+	 }
+	 else {
+		 return buckets[tempIndex];
+	 }
+ }
 
 
 void humanTest() {

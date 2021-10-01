@@ -10,9 +10,7 @@
 #include "hashtable.h"
 #include "testdata.h"
 
-#define EXT_MT_TABLE_SIZE 20
-#define STR_AMNT 50
-#define STR_CHAR_COUNT 100
+
 
     /* Code from the codingame challenge
     for (int i = 0; i < N; i++) {
@@ -29,39 +27,8 @@
     }
   */  // One file name per line.
 
-bucket_ts* htLookUp(bucket_ts* drip) {
-    if (drip == NULL) {
-        printf("\n\nThat bucket is empty!\n\n");
-        return false;
-    }
-    int tempIndex = hash(drip);
-    if (buckets[tempIndex]->key != NULL) {
-        puts("Error: Hash INS conflict");
-        return false;
-    }
-    else {
-        return buckets[tempIndex];
-    }
-}
 
 int main() {
-
-    FILE* mt_f;
-    FILE* ext_f;
-    FILE* fname_f;
-    char* mtPath = "C:\\Users\\bitloop\\Documents\\GitHub\\learning\\C_projects.d\\Challenges and Puzzles\\MIME TYPE\\_mt.txt";
-    char* extPath = "C:\\Users\\bitloop\\Documents\\GitHub\\learning\\C_projects.d\\Challenges and Puzzles\\MIME TYPE\\_ext.txt";
-    char* fnamePath = "C:\\Users\\bitloop\\Documents\\GitHub\\learning\\C_projects.d\\Challenges and Puzzles\\MIME TYPE\\_fname.txt";
-    char mt[STR_CHAR_COUNT][STR_AMNT] = { 0 };
-    char ext[STR_CHAR_COUNT][STR_AMNT] = { 0 };
-    char fname[STR_CHAR_COUNT][STR_AMNT] = { 0 };
-    int mtNlCount = 0;
-    int extNlCount = 0;
-    int fnameNlCount = 0;
-    char fnameTempString[257] = "\0";
-    char fnameTempChar = "\0";
-    int  tempCharCount = 0;
-    int Q, N; // Codingame challenge provided VARs
     Q = N = 0;
     //
     N = mtNlCount = parseFile(&mt_f, mtPath, mt);
@@ -103,14 +70,15 @@ int main() {
 
 
     bucket_ts tempDrip = { .key = "\0", .ext_pair = "\0"};
+    int bucketReturnVal = 0;
     for (int i = 0; i < Q; ++i) {
         strcpy(tempDrip.key, fname[i]);
-        htIns(tempDrip);
-        printf("LookUp Returned\t \"%s\"\n", buckets[hash(tempDrip)]->key);
+        bucketReturnVal = htLookUp(fname[i])
+        htIns(tempDrip); // this is for testing
+        printf("Look up by hash Returned\t \"%s\"\n", bucketsStorage[bucketReturnVal]; // this is for testing
+        printf("Loo kUp by FN Returned\t \"%s\"\n", bucketsStorage[hash(tempDrip)]->key); // this is for testing
     }
     printAllBuckets();
-
-
 
     free(bucketsStorage);
     free(buckets);
