@@ -21,7 +21,7 @@ extern "C" { // if true ^ then use C naming rules for C++ compilation
     int extNlCount = 0;
     int fnameNlCount = 0;
     char fnameTempString[257] = "\0";
-    char fnameTempChar = "\0";
+    char fnameTempChar = '\0';
     int  tempCharCount = 0;
     int Q, N; // Codingame challenge provided VARs
 

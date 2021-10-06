@@ -8,30 +8,34 @@
 #include <stdbool.h>
 #include "hashtable.h"
 
-int returnBucket(int x) {
-
-	return buckets[x]->key;
-}
-
-void printBucket(unsigned int bucketNumber) {
-	printf("Bucket %0x\t", bucketNumber);
+void printBucket(bucket_ts* drip) {
+	int bucketIndex = 0;
 	printf("FName ");
-	if (buckets[bucketNumber] == NULL) printf("____\tEXT ____");
+	if (drip == NULL) printf("____\tEXT ____");
 	else {
-		printf("\"%s\"\t", buckets[bucketNumber]->key);
+	bucketIndex = hash(&drip->key);
+	printf("Bucket %0x\t", bucketIndex);
+	bucket_ts* tempBucket = buckets[bucketIndex];
+	bool dash = 0;
+	while (tempBucket != NULL) {
+		printf("FName: ");
+		printf("\"%s\"\t", tempBucket->key);
 		printf("EXT ");
-		if (buckets[bucketNumber] == NULL) printf("____\t");
-		else printf("%s\t", buckets[bucketNumber]->ext_pair);
+		printf("%s\t", tempBucket->ext_pair);
+		dash = true;
+		tempBucket = tempBucket->next;
+		printf(" ----<next>  ");
+		}
+		
+		printf("\n");
 	}
-	printf("\n");
 }
 
 void printAllBuckets() {
 	for (int i = 0; i <= TABLE_SIZE; ++i) {
-		if (buckets[i] != NULL) printBucket(i);
+		if (buckets[i] != NULL) printBucket(buckets[i]);
 	}
 }
-
 
 void initBuckets() {
 	for (int i = 0; i <= TABLE_SIZE; ++i) {
@@ -39,11 +43,12 @@ void initBuckets() {
 	}
 }
 
-volatile unsigned int hash(bucket_ts* drip) {
+ unsigned int hash(char* drip) {
+	 if (drip == NULL) return NULL;
 	unsigned long int tempCount = 1;
-	int inputLen = sizeof(drip->key);
+	int inputLen = sizeof(drip);
 	for (int i = 0; i <= inputLen; ++i) {
-		tempCount += drip->key[i] * inputLen +1;
+		tempCount += drip[i] * inputLen +1;
 	}
 	printf("Hash() => %0x\n", (tempCount % TABLE_SIZE));
 	return tempCount % TABLE_SIZE;
@@ -51,57 +56,53 @@ volatile unsigned int hash(bucket_ts* drip) {
 
 // Hash Table Insert = htInsv
  bool htIns(bucket_ts* drip) {
-	if (drip == NULL) {
-		printf("\n\nCan not insert NULL bucket!\n\n");
-		return false;
-	}
-
-	int tempIndex = hash(drip);
-
-	if (buckets[tempIndex]->key != NULL) { 
-		puts("Error: Hash INS conflict"); 
-		return false;
-	}
-	else {
-		buckets[tempIndex] = drip;
-		return true;
-	}
-}
-
- bucket_ts* htLookUp(bucket_ts* drip) {
 	 if (drip == NULL) {
-		 printf("\n\nThat bucket is empty!\n\n");
+		 printf("\n\nCan not insert NULL bucket!\n\n");
 		 return false;
 	 }
-	 int tempIndex = hash(drip);
-	 if (buckets[tempIndex]->key != NULL) {
-		 puts("Error: Hash INS conflict");
-		 return false;
-	 }
-	 else {
-		 return buckets[tempIndex];
-	 }
+	 int tempIndex = hash(&drip->key);
+	 drip->next = buckets[tempIndex];
+	 buckets[tempIndex] = drip;
+	 return true;
  }
 
-
-void humanTest() {
-	puts("start");
-	initBuckets();
-	bucket_ts testDrip = { .key = "foo", .ext_pair = "bar" };
-	printBucket(hash(&testDrip));
-	puts("Attempt Insert bucket value to hash table.");
-	htIns(&testDrip); //pass by refrence
-	printBucket(hash(&testDrip));
-	puts("Attempt to reinsert the same value to to hash table.");
-	htIns(&testDrip); //pass by refrence
-	puts("end");
-	puts("print all buckets (that are not null)");
-	printAllBuckets();
+ bucket_ts* htLookUp(char* drip) {
+	if (drip == NULL) {
+		 printf("\n\nThat string is NULL!\n\n");
+		 return false;
+	}
+	 printf("htLookUP Char Drip = %s\n", drip);
+	 bucket_ts test = { .key = "", .ext_pair = ""};
+	 strcpy(test.key, drip);
+	int tempIndex = hash(test.key);
+	bucket_ts* tempBucket = buckets[tempIndex];
+	int try = 0;
+	while ((tempBucket != NULL) && strncmp(tempBucket->key, drip, sizeof(tempBucket->key)) !=0 ) {
+		if (tempBucket->next == NULL) break;
+		else tempBucket = tempBucket->next;
+	}
+	printBucket(tempBucket);
+	return tempBucket;
 }
 
-
-
-
-
-
-
+ bucket_ts* htDel(char* drip) {
+	 if (drip == NULL) {
+		printf("\n\nThat string is NULL!\n\n");
+		return NULL;
+	}
+	int tempIndex = hash(drip);
+	bucket_ts* tempBucket = buckets[tempIndex];
+	bucket_ts* prevBucket = NULL;
+	int try = 0;
+	while ((tempBucket != NULL) && strncmp(tempBucket->key, drip, 51) != 0) {
+		prevBucket = tempBucket;
+		tempBucket = tempBucket->next;
+	}
+	if (tempBucket == NULL) return NULL;
+	if (prevBucket == NULL) {
+		buckets[tempIndex] = tempBucket->next;
+	}	else {
+			prevBucket->next = tempBucket->next;
+		}
+	return tempBucket;
+}

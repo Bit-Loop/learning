@@ -30,10 +30,12 @@ extern "C" { // if true ^ then use C naming rules for C++ compilation
 	#define TABLE_SIZE 10000
 	#define FNAME_SIZE 257
 
-	typedef struct {
+	typedef struct bucket_ts{
 		char key[FNAME_SIZE];
 		char ext_pair[11];
-	} bucket_ts; //ts = typedef struct
+		struct bucket_ts* next;
+	} bucket_ts;
+	// ts = typedef struct
 
 	bucket_ts* buckets[TABLE_SIZE + 1];
 	bucket_ts* bucketsStorage[TABLE_SIZE + 1];

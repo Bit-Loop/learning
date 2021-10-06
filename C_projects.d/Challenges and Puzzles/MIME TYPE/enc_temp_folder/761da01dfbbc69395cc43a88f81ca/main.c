@@ -59,7 +59,7 @@ int main() {
         strcpy(bucketsStorage[i].ext_pair, fnameTempString);
         memset(fnameTempString, 0, strlen(fnameTempString));
         //
-        printf("insertFN: ");
+        printf("insFN: ");
         htIns(&bucketsStorage[i]);
         printf("\nhashFN: ");
         hash(fname[i]);
