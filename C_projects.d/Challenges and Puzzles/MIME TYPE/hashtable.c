@@ -1,4 +1,4 @@
-/* ITJ hashtable.c, created on 09/18/21, last change 09/24/21
+/* ITJ hashtable.c, created on 09/18/21, last change 10/06/21
 * REFs are in hashtable.h
 *
 */
@@ -22,6 +22,7 @@ void printBucket(bucket_ts* drip) {
 		printf("\"%s\"\t", tempBucket->key);
 		printf("EXT ");
 		printf("%s\t", tempBucket->ext_pair);
+		printf("ExtNum: %i\t", tempBucket->extNum);
 		dash = true;
 		tempBucket = tempBucket->next;
 		printf(" ----<next>  ");

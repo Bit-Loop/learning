@@ -33,6 +33,7 @@ extern "C" { // if true ^ then use C naming rules for C++ compilation
 	typedef struct bucket_ts{
 		char key[FNAME_SIZE];
 		char ext_pair[11];
+		int extNum;
 		struct bucket_ts* next;
 	} bucket_ts;
 	// ts = typedef struct
